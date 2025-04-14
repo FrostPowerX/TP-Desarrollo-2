@@ -437,6 +437,9 @@ MonoBehaviour:
   speed: 1000
   sprintSpeed: 1500
   jumpForce: 300
+  divisorJumpForce: 10
+  boostJumpDefaultTime: 0.2
+  boostJumpTimer: 0
 --- !u!114 &408528873
 MonoBehaviour:
   m_ObjectHideFlags: 0
