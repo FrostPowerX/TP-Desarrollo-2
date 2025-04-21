@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerLook : MonoBehaviour
 {
-    [SerializeField] Camera cam;
+    [SerializeField] GameObject root;
     [SerializeField] float xRotation = 0f;
 
     [SerializeField] float xSensi = 30f;
@@ -16,6 +16,7 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] bool desactivated;
 
     [SerializeField] InputActionAsset inputActionAsset;
+
     InputAction look;
 
     void Start()
@@ -45,7 +46,7 @@ public class PlayerLook : MonoBehaviour
         xRotation -= (mouseY * Time.deltaTime) * ySensi;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
 
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        root.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         transform.Rotate(Vector3.up * (Xmouse * Time.deltaTime) * xSensi);
     }
 

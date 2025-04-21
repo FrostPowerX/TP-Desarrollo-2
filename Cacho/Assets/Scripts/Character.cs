@@ -13,35 +13,36 @@ public class Character : MonoBehaviour
     [SerializeField] ForceRequest instantForceRequest;
     [SerializeField] Rigidbody rb;
 
+    bool isForceActive;
+
     public void ConstantForceRequest(ForceRequest forceRequest)
     {
         constantForceRequest = forceRequest;
+        isForceActive = true;
     }
 
     public void InstantForceRequest(ForceRequest forceRequest)
     {
         instantForceRequest = forceRequest;
+        InstantForce();
     }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        constantForceRequest = new ForceRequest();
+        instantForceRequest = new ForceRequest();
     }
 
     private void FixedUpdate()
     {
         ConstantForce();
-        InstantForce();
     }
 
-    void CancelForce()
-    {
-        constantForceRequest = null;
-    }
 
     void ConstantForce()
     {
-        if (constantForceRequest == null)
+        if (!isForceActive)
             return;
 
         float percentForce = rb.linearVelocity.magnitude / constantForceRequest.speed;
@@ -52,10 +53,12 @@ public class Character : MonoBehaviour
 
     void InstantForce()
     {
-        if (instantForceRequest == null)
-            return;
-
         rb.AddForce(instantForceRequest.direction * instantForceRequest.force, ForceMode.Impulse);
         instantForceRequest = null;
+    }
+
+    public void CancelForce()
+    {
+        isForceActive = false;
     }
 }
