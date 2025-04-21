@@ -1526,6 +1526,7 @@ GameObject:
   - component: {fileID: 7530491173688492566}
   - component: {fileID: 7530491173688492565}
   - component: {fileID: 7530491173688492564}
+  - component: {fileID: 7530491173688492568}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -4422,7 +4423,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222548246433223386}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 73ffbc06802a247cfb1b26f4ee67eba8, type: 3}
   m_Controller: {fileID: 9100000, guid: 40db3173a05ae3242b1c182a09b0a183, type: 2}
   m_CullingMode: 1
@@ -4449,11 +4450,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  character: {fileID: 7530491173688492565}
   forceRequest:
     direction: {x: 0, y: 0, z: 0}
     force: 0
     speed: 0
-  character: {fileID: 0}
+  force: 10
+  jumpForce: 5
+  speed: 20
 --- !u!114 &7530491173688492565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4474,7 +4478,7 @@ MonoBehaviour:
     direction: {x: 0, y: 0, z: 0}
     force: 0
     speed: 0
-  rb: {fileID: 0}
+  rb: {fileID: 7530491173688492566}
 --- !u!54 &7530491173688492566
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4500,8 +4504,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!136 &7530491173688492567
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4525,6 +4529,25 @@ CapsuleCollider:
   m_Height: 1.798206
   m_Direction: 1
   m_Center: {x: 0.0015637726, y: 0.8883721, z: 0}
+--- !u!114 &7530491173688492568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222548246433223386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6dcdecf75de7a4ea92d8f3423dd0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: {fileID: 6398866307643710449}
+  xRotation: 0
+  xSensi: 30
+  ySensi: 30
+  invert: 0
+  desactivated: 0
+  inputActionAsset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &7544291893425189457
 GameObject:
   m_ObjectHideFlags: 0
