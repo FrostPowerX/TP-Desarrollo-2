@@ -4,10 +4,14 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Character))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] GameObject head;
+
     [SerializeField] InputActionAsset inputActions;
     [SerializeField] Character character;
 
     [SerializeField] ForceRequest forceRequest;
+
+    [SerializeField] Vector2 Sens;
 
     [SerializeField] float force;
     [SerializeField] float jumpForce;
@@ -17,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     InputAction move;
     InputAction jump;
+    InputAction look;
 
     private void Awake()
     {
@@ -24,23 +29,42 @@ public class PlayerController : MonoBehaviour
 
         move = inputActions.FindAction("Move");
         jump = inputActions.FindAction("Jump");
+        look = inputActions.FindAction("Look");
 
         jump.started += Jump;
         move.canceled += CancelMove;
 
         forceRequest = new ForceRequest();
-        forceRequest.speed = speed;
     }
 
     private void Update()
     {
         ActualizeDirection();
         Move();
+        Look();
+    }
+
+    [ContextMenu("LockMouse")]
+    void LockMouse()
+    {
+        if (Cursor.lockState != CursorLockMode.Locked)
+            Cursor.lockState = CursorLockMode.Locked;
+        else
+            Cursor.lockState = CursorLockMode.None;
+    }
+
+    void Look()
+    {
+        character.MoveHeadRequest(look.ReadValue<Vector2>(), Sens, head);
     }
 
     void Jump(InputAction.CallbackContext cont)
     {
+        if (!character.OnFloor)
+            return;
+
         ForceRequest request = new ForceRequest(Vector3.up, jumpForce, speed);
+        forceRequest.speed = speed;
         character.InstantForceRequest(request);
     }
 
@@ -49,6 +73,7 @@ public class PlayerController : MonoBehaviour
         if (move.IsPressed())
         {
             forceRequest.force = force;
+            forceRequest.speed = speed;
             character.ConstantForceRequest(forceRequest);
         }
     }

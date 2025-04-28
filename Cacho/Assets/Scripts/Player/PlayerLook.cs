@@ -33,21 +33,12 @@ public class PlayerLook : MonoBehaviour
         if (desactivated) return;
         if (!desactivated && Cursor.lockState == CursorLockMode.None) Cursor.lockState = CursorLockMode.Locked;
 
-        LoockProcess();
+        LookProcess();
     }
 
-    private void LoockProcess()
+    private void LookProcess()
     {
-        float Xmouse = look.ReadValue<Vector2>().x;
-        float mouseY = look.ReadValue<Vector2>().y;
 
-        if (invert) mouseY *= -1;
-
-        xRotation -= (mouseY * Time.deltaTime) * ySensi;
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
-
-        root.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        transform.Rotate(Vector3.up * (Xmouse * Time.deltaTime) * xSensi);
     }
 
     public void SensChange(float X, float Y)
